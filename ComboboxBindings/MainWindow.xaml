@@ -1,0 +1,46 @@
+﻿<Window x:Class="ComboboxBindings.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ComboboxBindings"
+        xmlns:vm="clr-namespace:ComboboxBindings.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="450">
+    <Window.DataContext>
+        <vm:MainWindowViewModels/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ComboBox 
+            Grid.Row="0"
+            x:Name="Persons" 
+            ItemsSource="{Binding Persons}" 
+            SelectedItem="{Binding SelectedPerson}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding GetFullName}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <ComboBox 
+            Grid.Row="1"
+            x:Name="SelectedPerson_Addresses" 
+            ItemsSource="{Binding SelectedPerson.Addresses}" 
+            SelectedItem="{Binding SelectedPerson.PrimaryAddress}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding GetFullAddress}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <TextBlock Grid.Row="2" Text="{Binding SelectedPerson.PrimaryAddress.GetFullAddress}"/>
+    </Grid>
+</Window>
